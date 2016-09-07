@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		20DE6D4FD61EF97AD6692768 /* libPods-TouristHelper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45FC241D73D854BE73B57D44 /* libPods-TouristHelper.a */; };
+		3654BC70C031A115833A9CA0 /* libPods-TouristHelper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D9B414BD54BC5511824F1B2 /* libPods-TouristHelper.a */; };
 		FA4E129D1D728B140078BFE9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4E129C1D728B140078BFE9 /* AppDelegate.swift */; };
 		FA4E129F1D728B140078BFE9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4E129E1D728B140078BFE9 /* ViewController.swift */; };
 		FA4E12A21D728B140078BFE9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA4E12A01D728B140078BFE9 /* Main.storyboard */; };
@@ -36,7 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		45FC241D73D854BE73B57D44 /* libPods-TouristHelper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TouristHelper.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D9B414BD54BC5511824F1B2 /* libPods-TouristHelper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TouristHelper.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		468F25BE9729F0282A0D1B98 /* Pods-TouristHelper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouristHelper.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TouristHelper/Pods-TouristHelper.debug.xcconfig"; sourceTree = "<group>"; };
 		C1C58BA84C09BF9759C3685C /* Pods-TouristHelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouristHelper.release.xcconfig"; path = "Pods/Target Support Files/Pods-TouristHelper/Pods-TouristHelper.release.xcconfig"; sourceTree = "<group>"; };
 		FA4E12991D728B140078BFE9 /* TouristHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TouristHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,7 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				20DE6D4FD61EF97AD6692768 /* libPods-TouristHelper.a in Frameworks */,
+				3654BC70C031A115833A9CA0 /* libPods-TouristHelper.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,7 +84,7 @@
 		2F43CDE71DD47EDAA9EEFCB7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				45FC241D73D854BE73B57D44 /* libPods-TouristHelper.a */,
+				3D9B414BD54BC5511824F1B2 /* libPods-TouristHelper.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -219,7 +219,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0730;
-				ORGANIZATIONNAME = whizz;
+				ORGANIZATIONNAME = PinApp;
 				TargetAttributes = {
 					FA4E12981D728B140078BFE9 = {
 						CreatedOnToolsVersion = 7.3.1;
