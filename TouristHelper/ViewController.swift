@@ -14,7 +14,7 @@ import MapKit
 
 class ViewController: UIViewController, CLLocationManagerDelegate, NSURLConnectionDelegate, GMSMapViewDelegate  {
 
-    var mutableData:NSMutableData  = NSMutableData.init() //var to hold the result from Google for nearby places
+    var mutableData:NSMutableData  = NSMutableData.init() //var to hold the result from Google for nearby locations (Google Places)
     var currentPlaceMarker = GMSMarker.init() //hold the location where the user clicked recently
     var polyline = GMSPolyline.init() //hold the polylines drawn on the map
     var googleLocations = [CLLocation]() //hold all the locations fetched from google places

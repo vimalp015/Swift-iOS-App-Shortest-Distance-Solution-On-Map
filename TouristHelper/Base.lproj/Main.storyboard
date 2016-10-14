@@ -34,10 +34,10 @@
                                 <exclude reference="9yD-1V-03G"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="DsN-dy-yjS"/>
                                 <exclude reference="8j8-kZ-7YY"/>
                                 <exclude reference="Fes-tC-8HI"/>
                                 <exclude reference="wvW-Tg-Fli"/>
-                                <exclude reference="DsN-dy-yjS"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -45,10 +45,10 @@
                                 <include reference="9yD-1V-03G"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="DsN-dy-yjS"/>
                                 <include reference="8j8-kZ-7YY"/>
                                 <include reference="Fes-tC-8HI"/>
                                 <include reference="wvW-Tg-Fli"/>
-                                <include reference="DsN-dy-yjS"/>
                             </mask>
                         </variation>
                     </view>
