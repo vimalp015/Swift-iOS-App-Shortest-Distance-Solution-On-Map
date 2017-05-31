@@ -35,7 +35,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, NSURLConnecti
         }
     }
 
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
         //load the map and display the current location of the user until nearby locations are loaded
         //{
@@ -48,14 +48,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, NSURLConnecti
         let position = CLLocationCoordinate2DMake(lat, lon)
         let marker = GMSMarker(position: position)
         
-        let camera = GMSCameraPosition.cameraWithLatitude(lat, longitude: lon, zoom: 15)
+        let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: lon, zoom: 15)
         self.googleMapsView.camera = camera
         
         locationManager.stopUpdatingLocation()
         
         marker.title = "Tourist Helper"
         marker.map = self.googleMapsView
-        marker.map?.myLocationEnabled = true
+        marker.map?.isMyLocationEnabled = true
         marker.map?.settings.myLocationButton = true
         marker.map?.settings.scrollGestures = true
         //}
@@ -64,10 +64,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, NSURLConnecti
         //{
         //preferably the key should be fetched from google.plist
         let urlString = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(lat),\(lon)&radius=1000&type=restaurant&key=AIzaSyAYuV7MCH0S76Eit0mJW8lGMfOc98FySdA"
-        let url = NSURL(string:urlString)
-        let theRequest = NSMutableURLRequest(URL: url!)
-        theRequest.HTTPMethod = "POST"
-        let connection = NSURLConnection(request: theRequest, delegate: self, startImmediately: true)
+        let url = URL(string:urlString)
+        let theRequest = NSMutableURLRequest(url: url!)
+        theRequest.httpMethod = "POST"
+        let connection = NSURLConnection(request: theRequest as URLRequest, delegate: self, startImmediately: true)
         connection!.start()
         
         if (connection != nil) {
@@ -80,7 +80,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, NSURLConnecti
     }
     
     //event when a user clicks on the map
-    func mapView(mapView: GMSMapView, didTapAtCoordinate coordinate: CLLocationCoordinate2D) {
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         
         //remove the current marker
         currentPlaceMarker.map = nil
@@ -88,7 +88,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, NSURLConnecti
         polyline.map = nil
         
         let path = GMSMutablePath()
-        path.addCoordinate(CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude))
+        path.add(CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude))
         
         //Code to calculate the shortest path to google locations
         //{
@@ -97,23 +97,23 @@ class ViewController: UIViewController, CLLocationManagerDelegate, NSURLConnecti
         for _ in googleLocations {
             var nearestPoint = CLLocation.init()
             var removalIndex = 0
-            for (index, value) in tempGoogleLocations.enumerate() {
+            for (index, value) in tempGoogleLocations.enumerated() {
                 if(index == 0) {
                     nearestPoint = value
                     removalIndex = index
                 }
                 else {
-                    if(tempCurrentLocation.distanceFromLocation(nearestPoint) >= tempCurrentLocation.distanceFromLocation(value)) {
+                    if(tempCurrentLocation.distance(from: nearestPoint) >= tempCurrentLocation.distance(from: value)) {
                         nearestPoint = value
                         removalIndex = index
                     }
                 }
             }
-            tempGoogleLocations.removeAtIndex(removalIndex)
+            tempGoogleLocations.remove(at: removalIndex)
             tempCurrentLocation = nearestPoint
-            path.addCoordinate(CLLocationCoordinate2D(latitude: nearestPoint.coordinate.latitude, longitude: nearestPoint.coordinate.longitude))
+            path.add(CLLocationCoordinate2D(latitude: nearestPoint.coordinate.latitude, longitude: nearestPoint.coordinate.longitude))
         }
-        path.addCoordinate(CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude))
+        path.add(CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude))
         //}
         
         //display polylines on the map
@@ -132,28 +132,28 @@ class ViewController: UIViewController, CLLocationManagerDelegate, NSURLConnecti
         //}
     }
     
-    func mapView(mapView: GMSMapView, didTapInfoWindowOfMarker marker: GMSMarker) {
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         // your code
     }
     
-    func connection(connection: NSURLConnection!, didReceiveResponse response: NSURLResponse!) {
+    func connection(_ connection: NSURLConnection!, didReceiveResponse response: URLResponse!) {
         mutableData.length = 0;
     }
     
-    func connection(connection: NSURLConnection!, didReceiveData data: NSData!) {
-        mutableData.appendData(data)
+    func connection(_ connection: NSURLConnection!, didReceiveData data: Data!) {
+        mutableData.append(data)
     }
     
     //Function to scale the location icon
-    func image(originalImage: UIImage, scaledToSize size: CGSize) -> UIImage {
+    func image(_ originalImage: UIImage, scaledToSize size: CGSize) -> UIImage {
         //avoid redundant drawing
-        if CGSizeEqualToSize(originalImage.size, size) {
+        if originalImage.size.equalTo(size) {
             return originalImage
         }
         //create drawing context
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         //draw
-        originalImage.drawInRect(CGRectMake(0.0, 0.0, size.width, size.height))
+        originalImage.draw(in: CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height))
         //capture resultant image
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -162,10 +162,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, NSURLConnecti
     }
     
     //Triggered once the locations are received from Google Places
-    func connectionDidFinishLoading(connection: NSURLConnection!) {
+    func connectionDidFinishLoading(_ connection: NSURLConnection!) {
         
         do {
-            let json = try NSJSONSerialization.JSONObjectWithData(mutableData, options: []) as! [String: AnyObject]
+            let json = try JSONSerialization.jsonObject(with: mutableData as Data, options: []) as! [String: AnyObject]
             //Clear the map to avoid duplicate flags
             self.googleMapsView.clear()
             
@@ -173,7 +173,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, NSURLConnecti
             //print("results = \(results!.count)")
             
             //Loop each location from the result and set the marker on the map
-            for (index, result) in results!.enumerate() {
+            for (index, result) in results!.enumerated() {
                 //Select only 20 locations
                 if(index == 19) {
                     return
@@ -189,10 +189,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, NSURLConnecti
                         let placeMarker = GMSMarker.init()
                         placeMarker.position = coordinate
                         //Verify if "icon" is a valid URL
-                        if let url = NSURL(string: result["icon"] as! String) {
-                            if let data = NSData(contentsOfURL: url) {
+                        if let url = URL(string: result["icon"] as! String) {
+                            if let data = try? Data(contentsOf: url) {
                                 //placeMarker.icon = UIImage(data: data)!.imageWithRenderingMode(.AlwaysTemplate)
-                                placeMarker.icon = self.image(UIImage(data: data)!, scaledToSize: CGSizeMake(15.0, 15.0))
+                                placeMarker.icon = self.image(UIImage(data: data)!, scaledToSize: CGSize(width: 15.0, height: 15.0))
                             }        
                         }
                         placeMarker.title = result["name"] as? String
@@ -211,15 +211,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, NSURLConnecti
         
     }
     
-    func connection(connection: NSURLConnection, didFailWithError error: NSError) {
-        print(error.description)
+    func connection(_ connection: NSURLConnection, didFailWithError error: Error) {
+        //print(error.description)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
     }
 

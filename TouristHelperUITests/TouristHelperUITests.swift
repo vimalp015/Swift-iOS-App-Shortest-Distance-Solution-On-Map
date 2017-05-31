@@ -3,7 +3,7 @@
 //  TouristHelperUITests
 //
 //  Created by macbook on 8/28/16.
-//  Copyright © 2016 whizz. All rights reserved.
+//  All rights reserved.
 //
 
 import XCTest

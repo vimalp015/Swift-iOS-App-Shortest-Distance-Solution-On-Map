@@ -3,11 +3,11 @@
 //  TouristHelperTests
 //
 //  Created by macbook on 8/28/16.
-//  Copyright © 2016 whizz. All rights reserved.
+//  All rights reserved.
 //
 
 import XCTest
-@testable import TouristHelper
+//@testable import TouristHelper
 
 class TouristHelperTests: XCTestCase {
     
@@ -28,7 +28,7 @@ class TouristHelperTests: XCTestCase {
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
-        self.measureBlock {
+        self.measure {
             // Put the code you want to measure the time of here.
         }
     }
